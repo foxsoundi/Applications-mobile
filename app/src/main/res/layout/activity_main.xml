@@ -29,6 +29,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/navigation"/>
 
+    <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="77dp"
+            android:max="5"/>
+
     <GridView
             android:layout_width="368dp"
             android:layout_height="404dp" tools:layout_editor_absoluteY="43dp" tools:layout_editor_absoluteX="8dp"

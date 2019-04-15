@@ -24,6 +24,11 @@ public class OptionsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void music(View view) {
+        Intent intent = new Intent(this, MusicActivity.class);
+        startActivity(intent);
+    }
+
     public void Back(View v) {
         finish() ;
     }

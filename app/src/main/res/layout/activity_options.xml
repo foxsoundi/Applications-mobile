@@ -16,12 +16,20 @@
             android:onClick="search" tools:layout_editor_absoluteY="16dp" tools:layout_editor_absoluteX="0dp"/>
 
     <Button
-            android:id="@+id/buttonMusic"
+            android:id="@+id/buttonYourMusic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your music"
             android:layout_below="@id/buttonSearch"
             android:onClick="yourMusic" tools:layout_editor_absoluteY="74dp" tools:layout_editor_absoluteX="0dp"/>
+
+    <Button
+            android:id="@+id/buttonMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Music"
+            android:layout_below="@id/buttonSearch"
+            android:onClick="music" tools:layout_editor_absoluteY="74dp" tools:layout_editor_absoluteX="0dp"/>
 
     <Button
             android:id="@+id/button2"
