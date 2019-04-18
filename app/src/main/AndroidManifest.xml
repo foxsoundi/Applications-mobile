@@ -53,8 +53,9 @@
         <activity
                 android:name=".YourMusicActivity"
                 android:label="Page de your music"/>
+
         <activity android:name=".MusicActivity"
-            android:label="Page de search"
+            android:label="Page d'écoute"
             android:parentActivityName=".MainActivity"/>
     </application>
 

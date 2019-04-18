@@ -23,11 +23,11 @@ public class MusicActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(mp.isPlaying()) {
                     mp.pause();
-                    play.setBackgroundResource(R.mipmap.playb);
+                    play.setBackgroundResource(R.drawable.ic_play_circle_outline_black_24dp);
                 }
                 else {
                     mp.start();
-                    play.setBackgroundResource(R.mipmap.pauseb);
+                    play.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_24dp);
                 }
             }
         });

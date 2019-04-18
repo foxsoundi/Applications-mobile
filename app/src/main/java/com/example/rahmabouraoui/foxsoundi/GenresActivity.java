@@ -3,6 +3,7 @@ package com.example.rahmabouraoui.foxsoundi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridView;
 
 public class GenresActivity extends AppCompatActivity {
 
@@ -10,6 +11,7 @@ public class GenresActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genres);
+
     }
 
     public void Back(View v) {

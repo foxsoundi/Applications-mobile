@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    GridView gridView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        gridView = (GridView) findViewById(R.id.gridView);
+        GridAdapter gridAdapter = new GridAdapter(this, genres, images);
+        gridView.setAdapter(gridAdapter);
+
     }
 
     public void goGenres(MenuItem item) {
@@ -74,4 +80,26 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AccountActivity.class);
         startActivity(intent);
     }
+
+
+
+    String[] genres = {
+            "Pop",
+            "Rock",
+            "Electronic",
+            "Rap",
+            "Indie",
+            "Jazz"
+
+    };
+
+    int[] images = {
+            R.mipmap.pop,
+            R.mipmap.rock,
+            R.mipmap.electro,
+            R.mipmap.rap,
+            R.mipmap.indie,
+            R.mipmap.jazz,
+    };
+
 }

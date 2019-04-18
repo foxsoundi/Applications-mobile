@@ -30,6 +30,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void Back(View v) {
+
         finish() ;
     }
 }
