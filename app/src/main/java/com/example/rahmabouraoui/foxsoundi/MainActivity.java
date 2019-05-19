@@ -1,6 +1,8 @@
 package com.example.rahmabouraoui.foxsoundi;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +12,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     private TextView mTextMessage;
     GridView gridView;
@@ -46,13 +50,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setBackgroundColor(Color.TRANSPARENT);
+        navigation.setItemTextColor(ColorStateList.valueOf(Color.GRAY));
+        navigation.setItemIconTintList(ColorStateList.valueOf(Color.GRAY));
 
-        gridView = (GridView) findViewById(R.id.gridView);
+        /*gridView = (GridView) findViewById(R.id.gridView);
         GridAdapter gridAdapter = new GridAdapter(this, genres, images);
         gridView.setAdapter(gridAdapter);
+
+        gridView.setNumColumns(2);*/
+
 
     }
 

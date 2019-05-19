@@ -3,31 +3,31 @@
 
     <item
             android:id="@+id/navigation_genre"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/genres"
             android:onClick="goGenres"
             android:title="@string/title_genre"/>
 
     <item
             android:id="@+id/navigation_top50"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:icon="@drawable/top50"
             android:onClick="goTop50"
             android:title="@string/title_top50"/>
 
     <item
             android:id="@+id/navigation_new"
-            android:icon="@drawable/ic_notifications_black_24dp"
+            android:icon="@drawable/neww"
             android:onClick="goNew"
             android:title="@string/title_new"/>
 
     <item
             android:id="@+id/navigation_search"
-            android:icon="@drawable/ic_notifications_black_24dp"
+            android:icon="@drawable/ic_search_black_24dp"
             android:onClick="goSearch"
             android:title="@string/title_search"/>
 
     <item
             android:id="@+id/navigation_plusDoptions"
-            android:icon="@drawable/ic_notifications_black_24dp"
+            android:icon="@drawable/more"
             android:onClick="goOptions"
             android:title="@string/title_plusDoptions"/>
 

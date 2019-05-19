@@ -3,6 +3,7 @@ package com.example.rahmabouraoui.foxsoundi;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +46,18 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class AccountActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    TextView txtStatus;
+    LoginButton loginButton;
+    CallbackManager callbackManager;
+
+    private void initializeControls() {
+        callbackManager = CallbackManager.Factory.create();
+        txtStatus = (TextView) findViewById(R.id.txtStatus);
+        loginButton = (LoginButton) findViewById(R.id.loginButton);
+    }
+
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -90,8 +110,44 @@ public class AccountActivity extends AppCompatActivity implements LoaderCallback
             }
         });
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        initializeControls();
+        loginWithFB();
+    }
+
+    private void onClick() {
+        EditText email = findViewById(R.id.email);
+        EditText mdp = findViewById(R.id.password);
+
+        if(email.equals("foxsoundi@gmail.com") && mdp.equals("mdp1234")) {
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            startActivity(mainIntent);
+        }
+    }
+
+    private void loginWithFB() {
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                txtStatus.setText("Login success\n" + loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                txtStatus.setText("Login canceled.");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                txtStatus.setText("Login error ! " + error.getMessage());
+            }
+        });
+
     }
 
     private void populateAutoComplete() {
@@ -122,6 +178,13 @@ public class AccountActivity extends AppCompatActivity implements LoaderCallback
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
         return false;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

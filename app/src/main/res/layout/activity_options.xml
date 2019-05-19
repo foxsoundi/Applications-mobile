@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@mipmap/fde2"
         tools:context=".OptionsActivity">
 
     <Button
@@ -13,15 +14,20 @@
             android:layout_height="wrap_content"
             android:text="Search"
             android:layout_above="@id/button2"
-            android:onClick="search" tools:layout_editor_absoluteY="16dp" tools:layout_editor_absoluteX="0dp"/>
+            android:onClick="search"
+            tools:layout_editor_absoluteY="16dp"
+            tools:layout_editor_absoluteX="0dp"
+    />
 
     <Button
             android:id="@+id/buttonYourMusic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your music"
+            android:text="My music"
             android:layout_below="@id/buttonSearch"
-            android:onClick="yourMusic" tools:layout_editor_absoluteY="74dp" tools:layout_editor_absoluteX="0dp"/>
+            android:onClick="yourMusic"
+            tools:layout_editor_absoluteY="74dp"
+            tools:layout_editor_absoluteX="0dp"/>
 
     <Button
             android:id="@+id/buttonMusic"
@@ -29,7 +35,9 @@
             android:layout_height="wrap_content"
             android:text="Music"
             android:layout_below="@id/buttonSearch"
-            android:onClick="music" tools:layout_editor_absoluteY="74dp" tools:layout_editor_absoluteX="0dp"/>
+            android:onClick="music"
+            tools:layout_editor_absoluteY="74dp"
+            tools:layout_editor_absoluteX="0dp"/>
 
     <Button
             android:id="@+id/button2"
@@ -37,6 +45,8 @@
             android:layout_height="wrap_content"
             android:text="Retour"
             android:layout_below="@id/buttonSearch"
-            android:onClick="Back" tools:layout_editor_absoluteY="74dp" tools:layout_editor_absoluteX="0dp"/>
+            android:onClick="Back"
+            tools:layout_editor_absoluteY="74dp"
+            tools:layout_editor_absoluteX="0dp"/>
 
 </LinearLayout>
