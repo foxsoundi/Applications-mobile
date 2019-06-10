@@ -20,15 +20,9 @@
             android:title="@string/title_new"/>
 
     <item
-            android:id="@+id/navigation_search"
-            android:icon="@drawable/ic_search_black_24dp"
-            android:onClick="goSearch"
-            android:title="@string/title_search"/>
-
-    <item
-            android:id="@+id/navigation_plusDoptions"
-            android:icon="@drawable/more"
-            android:onClick="goOptions"
-            android:title="@string/title_plusDoptions"/>
+            android:id="@+id/navigation_account"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:onClick="goAccount"
+            android:title="@string/title_account"/>
 
 </menu>

@@ -1,12 +1,31 @@
 package com.example.rahmabouraoui.foxsoundi;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 public class YourMusicActivity extends AppCompatActivity {
+
+    private long id;
+    private String title;
+    private String artist;
+
+    public YourMusicActivity(long songID, String songTitle, String songArtist) {
+        id = songID;
+        title = songTitle;
+        artist = songArtist;
+    }
+
+    public long getID() {
+        return id;
+    }
+    public String getTittle() {
+        return title;
+    }
+    public String getArtist() {
+        return artist;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

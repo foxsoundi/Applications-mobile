@@ -2,21 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/navigation_genre"
-            android:icon="@drawable/genres"
-            android:onClick="goGenres"
-            android:title="@string/title_genre"/>
+            android:icon="@drawable/ic_playlist_play_black_24dp"
+            android:onClick="goPlaylist"
+            android:title="Your Playlist"/>
 
-    <item
-            android:id="@+id/navigation_top50"
-            android:icon="@drawable/top50"
-            android:onClick="goTop50"
-            android:title="@string/title_top50"/>
-
-    <item
-            android:id="@+id/navigation_new"
-            android:icon="@drawable/neww"
-            android:onClick="goNew"
-            android:title="@string/title_new"/>
 
     <item
             android:id="@+id/navigation_search"
@@ -24,9 +13,4 @@
             android:onClick="goSearch"
             android:title="@string/title_search"/>
 
-    <item
-            android:id="@+id/navigation_plusDoptions"
-            android:icon="@drawable/more"
-            android:onClick="goOptions"
-            android:title="@string/title_plusDoptions"/>
 </menu>

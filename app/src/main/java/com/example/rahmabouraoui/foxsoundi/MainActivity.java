@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.GridView;
@@ -13,7 +15,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private TextView mTextMessage;
     GridView gridView;
@@ -36,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     mTextMessage.setText(R.string.title_search);
                     return true;
-                case R.id.navigation_plusDoptions:
-                    mTextMessage.setText(R.string.title_plusDoptions);
+                case R.id.navigation_account:
+                    mTextMessage.setText(R.string.title_account);
                     return true;
 
             }
@@ -49,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -65,11 +66,33 @@ public class MainActivity extends AppCompatActivity {
 
         gridView.setNumColumns(2);*/
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void goGenres(MenuItem item) {
         Intent intent = new Intent(this, GenresActivity.class);
+        startActivity(intent);
+    }
+
+    public void goPlaylist(MenuItem item) {
+        Intent intent = new Intent(this, MusicActivity.class);
         startActivity(intent);
     }
 
@@ -84,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goSearch(MenuItem item) {
-        Intent intent = new Intent(this, OptionsActivity.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
 
-    public void goOptions(MenuItem item) {
+    public void goAccount(MenuItem item) {
         Intent intent = new Intent(this, AccountActivity.class);
         startActivity(intent);
     }

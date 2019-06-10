@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackground">#160202</color>
+
+    <color name="grey">#b2b2b2</color>
+    <color name="lightGrey">#e2e2e2</color>
+    <color name="white">#ffffff</color>
+    <color name="green">#1db954</color>
+
+    <color name="notification_bg">#e91e63</color>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -7,23 +7,29 @@
         android:background="@mipmap/fde2"
         tools:context=".SearchActivity">
 
-    <LinearLayout android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="@dimen/activity_horizontal_margin">
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+    >
 
-    </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
-    <ImageView
-            android:layout_width="wrap_content"
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/bibi"/>
+            >
+    </com.miguelcatalan.materialsearchview.MaterialSearchView>
 
     <Button
             android:id="@+id/button2"
             android:background="@drawable/button_radius"
             android:layout_width="150dp"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
             android:text="Retour"
-            android:onClick="Back"/>
+            android:onClick="Back"
+            tools:layout_editor_absoluteY="516dp"/>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
