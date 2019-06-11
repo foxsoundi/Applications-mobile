@@ -53,6 +53,9 @@
         <activity
                 android:name=".SearchActivity"
                 android:parentActivityName=".SearchActivity"/>
+        <activity
+                android:name=".MusicActivity"
+                android:parentActivityName=".MusicActivity"/>
 
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"
