@@ -9,6 +9,13 @@
     <string name="title_activity_account">Sign in</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string-array name="search">
+        <item>Ariana Grande</item>
+        <item>Petit Biscuit</item>
+        <item>Eminem</item>
+        <item>50 cent</item>
+        <item>David Guetta</item>
+    </string-array>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -20,11 +27,14 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
-    <string name="facebook_app_id">334726467232655</string>
     <string name="title_activity_optionss">OptionssActivity</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+
+    <string name="facebook_app_id">334726467232655</string>
+    <string name="fb_login_protocol_scheme">fb334726467232655</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

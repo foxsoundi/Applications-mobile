@@ -24,20 +24,19 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
+import android.widget.*;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.facebook.*;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import de.hdodenhof.circleimageview.CircleImageView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -47,14 +46,19 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class AccountActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+
+
     TextView txtStatus;
     LoginButton loginButton;
     CallbackManager callbackManager;
+    private CircleImageView circleImageView;
+    private TextView txtName, txtEmail;
 
     private void initializeControls() {
         callbackManager = CallbackManager.Factory.create();
         txtStatus = (TextView) findViewById(R.id.txtStatus);
         loginButton = (LoginButton) findViewById(R.id.loginButton);
+        loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
     }
 
 
@@ -119,11 +123,11 @@ public class AccountActivity extends AppCompatActivity implements LoaderCallback
         loginWithFB();
     }
 
-    private void onClick() {
-        EditText email = findViewById(R.id.email);
-        EditText mdp = findViewById(R.id.password);
+    private void goConnection(View view) {
+        String mail = mEmailView.getText().toString();
+        String mdp = mPasswordView.getText().toString();
 
-        if(email.equals("foxsoundi@gmail.com") && mdp.equals("mdp1234")) {
+        if(mail == "foxsoundi@gmail.com" && mdp == "mdp1234") {
             Intent mainIntent = new Intent(this, MainActivity.class);
             startActivity(mainIntent);
         }
@@ -148,6 +152,55 @@ public class AccountActivity extends AppCompatActivity implements LoaderCallback
             }
         });
 
+    }
+
+    AccessTokenTracker TokenTracker = new AccessTokenTracker() {
+        @Override
+        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+            if(currentAccessToken == null) {
+                txtName.setText("");
+                txtEmail.setText("");
+                circleImageView.setImageResource(0);
+                Toast.makeText(AccountActivity.this, "User logged out", Toast.LENGTH_LONG).show();
+            }
+            else {
+                loadUserProfile(currentAccessToken);
+            }
+
+        }
+    };
+    private void loadUserProfile(AccessToken newAccessToken) {
+        GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+
+                try {
+                    String first_name = object.getString("first_name");
+                    String last_name = object.getString("last_name");
+                    String email = object.getString("email");
+                    String id = object.getString("id");
+
+                    String image_url = "https://graph.facebook.com/" + id+ "/picture?type=normal";
+
+                    txtEmail.setText(email);
+                    txtName.setText(first_name + " " + last_name);
+                    RequestOptions requestOptions = new RequestOptions();
+                    requestOptions.dontAnimate();
+
+                    Glide.with(AccountActivity.this).load(image_url).into(circleImageView);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "first_name");
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
     }
 
     private void populateAutoComplete() {
@@ -341,7 +394,6 @@ public class AccountActivity extends AppCompatActivity implements LoaderCallback
 
         mEmailView.setAdapter(adapter);
     }
-
 
     private interface ProfileQuery {
         String[] PROJECTION = {
