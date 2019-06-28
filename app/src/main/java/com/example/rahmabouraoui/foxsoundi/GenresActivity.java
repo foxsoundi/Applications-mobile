@@ -2,7 +2,6 @@ package com.example.rahmabouraoui.foxsoundi;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +51,7 @@ public class GenresActivity extends AppCompatActivity {
 
                         for (int i = 0; i < jsonItems.length(); i++) {
                             JSONObject jsonGenre = jsonItems.getJSONObject(i);
+                            System.out.println("ITEMS >>>>> : " + jsonItems.length());
                             Genre genre = new Genre();
                             genre.setHref(jsonGenre.getString("href"));
                             genre.setId(jsonGenre.getString("id"));
@@ -64,10 +64,13 @@ public class GenresActivity extends AppCompatActivity {
                             icone.setWidth(jsonIcone.getInt("width"));
                             genre.setIcone(icone);
                             genres.add(genre);
+                            System.out.println("Nb genres1111 : " + genres.size() ) ;
                             Log.i("GENRE ; " , genre.toString());
                             System.out.println(genre.toString());
 
                         }
+
+                        System.out.println("Nb genres2222 : " + genres.size() ) ;
 
                         //ArrayAdapter<Genre> aaGenres = new ArrayAdapter<Genre>(GenresActivity.this, , genres);
                         ItemGenreAdapter aaItem = new ItemGenreAdapter();
@@ -179,13 +182,16 @@ public class GenresActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
             View vItem = super.getView(position, convertView, parent);
             TextView tvHeight = (TextView) findViewById(R.id.tvHeight);
             TextView tvWidth = (TextView) findViewById(R.id.tvWidth);
             Genre genre = GenresActivity.this.genres.get(position);
+            System.out.println("getView " + position);
             tvHeight.setText(genre.getIcone().getHeight());
             tvWidth.setText(genre.getIcone().getWidth());
+            System.out.println("TVHEIGHT >>>>>>> " + tvHeight);
+            System.out.println("TVWIDTH >>>>>>> " + tvWidth);
             return vItem;
         }
     }

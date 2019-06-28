@@ -60,7 +60,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:typeface="sans"
-                        android:drawableLeft="@drawable/ic_action_user"
+                        android:drawableLeft="@drawable/ic_account_box_black_24dp"
                         android:background="#171915"
                         android:singleLine="true"/>
 
@@ -82,7 +82,7 @@
                         android:imeOptions="actionUnspecified"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:drawableLeft="@drawable/ic_action_lock"
+                        android:drawableLeft="@drawable/ic_lock_black_24dp"
                         android:background="#171915"
                         android:singleLine="true"/>
 
