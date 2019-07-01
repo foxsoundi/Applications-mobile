@@ -39,12 +39,13 @@ public class GenresActivity extends AppCompatActivity {
 
         System.out.println("Genres");
 
-        String url = "https://foxsoundi2.azurewebsites.net/v1/music/genre";
+        String url = "http://foxsoundi2.azurewebsites.net/v1/music/genre";
         System.out.println("1");
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    System.out.println("Réception") ;
                     try {
                         JSONObject jsonCategories = response.getJSONObject("categories");
                         JSONArray jsonItems = jsonCategories.getJSONArray("items");
@@ -73,9 +74,17 @@ public class GenresActivity extends AppCompatActivity {
                         System.out.println("Nb genres2222 : " + genres.size() ) ;
 
                         //ArrayAdapter<Genre> aaGenres = new ArrayAdapter<Genre>(GenresActivity.this, , genres);
-                        ItemGenreAdapter aaItem = new ItemGenreAdapter();
-                        GenresActivity.this.lvGenres.setAdapter(aaItem);
 
+                        System.out.println( "<1> ") ;
+                        for( Genre g : genres ) {
+                            System.out.println( "<2> " + g ) ;
+                        }
+                        System.out.println( "<3> ") ;
+
+                        ItemGenreAdapter aaItem = new ItemGenreAdapter(genres);
+                        System.out.println( "<4> ") ;
+                        GenresActivity.this.lvGenres.setAdapter(aaItem);
+                        System.out.println( "<5> ") ;
 
                     } catch (JSONException e) {
                         System.out.println("e1");
@@ -90,6 +99,7 @@ public class GenresActivity extends AppCompatActivity {
             }
         });
         System.out.println("2");
+        //mQueue = Volley.newRequestQueue(this);
         mQueue.add(request);
         System.out.println("3");
     }
@@ -175,8 +185,9 @@ public class GenresActivity extends AppCompatActivity {
 
     class ItemGenreAdapter extends ArrayAdapter<Genre> {
 
-        public ItemGenreAdapter() {
-            super(GenresActivity.this, R.layout.list_item_genre, R.id.tvName, GenresActivity.this.genres);
+        public ItemGenreAdapter(List<Genre> lstGenres) {
+            super(GenresActivity.this, R.layout.list_item_genre, R.id.tvName, lstGenres);
+            //super(GenresActivity.this, R.layout.list_item_genre, lstGenres);
         }
 
 
@@ -184,14 +195,19 @@ public class GenresActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View vItem = super.getView(position, convertView, parent);
+            //TextView tvName = (TextView) findViewById(R.id.tvName);
+            //System.out.println( ">>  " + tvName ) ;
+            //tvName.setText( GenresActivity.this.genres.get(position).getName()) ;
             TextView tvHeight = (TextView) findViewById(R.id.tvHeight);
             TextView tvWidth = (TextView) findViewById(R.id.tvWidth);
             Genre genre = GenresActivity.this.genres.get(position);
-            System.out.println("getView " + position);
+            /*System.out.println("getView " + position);
             tvHeight.setText(genre.getIcone().getHeight());
             tvWidth.setText(genre.getIcone().getWidth());
+            */
             System.out.println("TVHEIGHT >>>>>>> " + tvHeight);
             System.out.println("TVWIDTH >>>>>>> " + tvWidth);
+
             return vItem;
         }
     }

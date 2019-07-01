@@ -1,6 +1,8 @@
 package com.example.rahmabouraoui.foxsoundi;
 
-public class Genre {
+import java.io.Serializable;
+
+public class Genre implements Serializable {
 
     private String href;
     private String id;

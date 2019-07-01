@@ -27,58 +27,55 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenresImagesActivity extends AppCompatActivity {
+public class GenreMusicActivity extends AppCompatActivity {
 
     GridLayout grille;
-    List<Genre> genres = new ArrayList<Genre>();
+    List<Playlist> lesPLs = new ArrayList<Playlist>();
     private RequestQueue mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        System.out.println("Images");
 
-        setContentView(R.layout.activity_genres_images);
-        grille = (GridLayout) findViewById(R.id.mainGrid) ;
+        setContentView(R.layout.activity_genre_music);
+        grille = (GridLayout) findViewById(R.id.mainGridPL) ;
 
         mQueue = Volley.newRequestQueue(this);
 
-        System.out.println("Genres");
+        System.out.println("PlayLists");
 
-        String url = "http://foxsoundi2.azurewebsites.net/v1/music/genre";
-        System.out.println("1");
+        String idGenre = this.getIntent().getExtras().getString( "id" ) ;
+
+        String url = "http://foxsoundi2.azurewebsites.net/v1/music/genre/" + idGenre + "/playlists" ;
+        System.out.println("1 => " + url );
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println("Requete");
                         try {
-                            JSONObject jsonCategories = response.getJSONObject("categories");
-                            JSONArray jsonItems = jsonCategories.getJSONArray("items");
+                            JSONObject jsonPLs = response.getJSONObject("playlists");
+                            JSONArray jsonItems = jsonPLs.getJSONArray("items");
 
                             for (int i = 0; i < jsonItems.length(); i++) {
-                                JSONObject jsonGenre = jsonItems.getJSONObject(i);
-                                Genre genre = new Genre();
-                                genre.setHref(jsonGenre.getString("href"));
-                                genre.setId(jsonGenre.getString("id"));
-                                genre.setName(jsonGenre.getString("name"));
-                                JSONArray jsonIcones = jsonGenre.getJSONArray("icons");
-                                JSONObject jsonIcone = jsonIcones.getJSONObject(0);
-                                Icone icone = new Icone();
-                                icone.setHeight(jsonIcone.getInt("height"));
-                                icone.setUrl(jsonIcone.getString("url"));
-                                icone.setWidth(jsonIcone.getInt("width"));
-                                genre.setIcone(icone);
-                                genres.add(genre);
-                                Log.i("GENRE ; " , genre.toString());
-                                System.out.println(genre.toString());
+                                JSONObject jsonPL = jsonItems.getJSONObject(i);
+                                Playlist pl = new Playlist();
+                                pl.setName(jsonPL.getString("name"));
+                                pl.setId(jsonPL.getString("id"));
+                                pl.setHref(jsonPL.getString("href"));
+                                JSONArray jsonImgs = jsonPL.getJSONArray("images");
+                                JSONObject jsonImg = jsonImgs.getJSONObject(0);
+                                pl.setUrlImage(jsonImg.getString("url"));
+                                lesPLs.add(pl);
+                                Log.i("PL ; " , pl.toString());
+                                System.out.println(pl.toString());
 
                             }
 
-                            for(Genre genre : genres) {
-                                System.out.println("Genre $$$ : " + genre) ;
-                                new DownLoadImageTask(GenresImagesActivity.this.grille, genre).execute();
+                            for(Playlist pl : lesPLs) {
+                                System.out.println("PL $$$ : " + pl) ;
+                                new GenreMusicActivity.DownLoadImageTask(GenreMusicActivity.this.grille, pl).execute();
                                 /*
                                 LinearLayout linearLayout = new LinearLayout(GenresImagesActivity.this);
                                 TextView textGenre = new TextView(GenresImagesActivity.this);
@@ -111,18 +108,18 @@ public class GenresImagesActivity extends AppCompatActivity {
         finish() ;
     }
 
-    private class DownLoadImageTask extends AsyncTask<String,Void,Bitmap> {
+    private class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
         ImageView imageView;
         GridLayout grille;
-        Genre genre;
+        Playlist pl;
 
         public DownLoadImageTask(ImageView imageView){
             this.imageView = imageView;
         }
 
-        public DownLoadImageTask(GridLayout grille, Genre genre) {
+        public DownLoadImageTask(GridLayout grille, Playlist pl) {
             this.grille = grille;
-            this.genre = genre;
+            this.pl = pl;
         }
 
         /*
@@ -131,7 +128,7 @@ public class GenresImagesActivity extends AppCompatActivity {
                          */
         protected Bitmap doInBackground(String...urls){
             //String urlOfImage = urls[0];
-            String urlOfImage = genre.getIcone().getUrl();
+            String urlOfImage = pl.getUrlImage() ;
             Bitmap logo = null;
             try{
                 InputStream is = new URL(urlOfImage).openStream();
@@ -152,24 +149,26 @@ public class GenresImagesActivity extends AppCompatActivity {
          */
         protected void onPostExecute(Bitmap result){
             System.out.println( "VERTICAL" ) ;
-            LinearLayout linearLayout = new LinearLayout(GenresImagesActivity.this);
+            LinearLayout linearLayout = new LinearLayout(GenreMusicActivity.this);
             //linearLayout.setGravity(LinearLayout.VERTICAL);
-            ImageView imgGenre = new ImageView(GenresImagesActivity.this);
-            imgGenre.setOnClickListener(new View.OnClickListener() {
+            ImageView imgPL = new ImageView(GenreMusicActivity.this);
+            imgPL.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println( "GG : " + genre.getName() ) ;
+                    System.out.println( "PL : " + pl.getName() ) ;
+
                     Bundle bdl = new Bundle() ;
-                    bdl.putString( "id" , DownLoadImageTask.this.genre.getId() );
-                    Intent intent = new Intent(GenresImagesActivity.this, GenreMusicActivity.class);
+                    bdl.putString( "id" , pl.getId() );
+                    Intent intent = new Intent(GenreMusicActivity.this, TrackActivity.class);
                     intent.putExtras( bdl ) ;
                     startActivity(intent);
+
                 }
             });
-            imgGenre.setImageBitmap(result);
-            linearLayout.addView(imgGenre);
-            TextView textGenre = new TextView(GenresImagesActivity.this);
-            textGenre.setText(genre.getName());
+            imgPL.setImageBitmap(result);
+            linearLayout.addView(imgPL);
+            TextView textGenre = new TextView(GenreMusicActivity.this);
+            textGenre.setText(pl.getName());
             LinearLayout.LayoutParams paramText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             linearLayout.addView(textGenre, paramText);
             grille.addView(linearLayout);

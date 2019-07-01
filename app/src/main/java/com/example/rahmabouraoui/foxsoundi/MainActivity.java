@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goGenres(MenuItem item) {
-        Intent intent = new Intent(this, GenresActivity.class);
+        Intent intent = new Intent(this, GenresImagesActivity.class);
         startActivity(intent);
     }
 
