@@ -1,34 +1,75 @@
 package com.example.rahmabouraoui.foxsoundi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import com.android.volley.*;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+public class ListenActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
 
-public class ListenActivity extends YouTubeBaseActivity {
-
-    private RequestQueue mQueue;
+    private static final int RECOVERY_REQUEST=1;
+    private YouTubePlayerView youTubeView;
     private final String API_KEY = "AIzaSyBs3YEYtALR49zyTNhWDWc7VjPnVCxE8Bg";
-    private final String VIDEO_CODE = "XfP31eWXli4";
-    YouTubePlayerView player;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listen);
 
-        Track tr = (Track) this.getIntent().getExtras().getSerializable("music") ;
-        System.out.println("listen : " + tr);
+        youTubeView=(YouTubePlayerView) findViewById(R.id.player);
+        youTubeView.initialize(API_KEY,this);
+    }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored){
+        if(!wasRestored){
+        player.cueVideo("fhWaJi1Hsfo"); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
+        }
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult errorReason){
+        if(errorReason.isUserRecoverableError()){
+            errorReason.getErrorDialog(this,RECOVERY_REQUEST).show();
+        }else{
+            //String error=String.format(getString(R.string.player_error),errorReason.toString());
+            Toast.makeText(this,"error",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode==RECOVERY_REQUEST){
+        // Retry initialization if user performed a recovery action
+            getYouTubePlayerProvider().initialize(API_KEY,this);
+        }
+    }
+
+    protected YouTubePlayer.Provider getYouTubePlayerProvider(){
+        return youTubeView;
+    }
+}
+//        } {
+//
+//    private RequestQueue mQueue;
+//    private final String API_KEY = "AIzaSyBs3YEYtALR49zyTNhWDWc7VjPnVCxE8Bg";
+//    private final String VIDEO_CODE = "XfP31eWXli4";
+//    YouTubePlayerView player;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_listen);
+//
+//    }
+//}
+
+
+        //Track tr = (Track) this.getIntent().getExtras().getSerializable("music") ;
+        //System.out.println("listen : " + tr);
 
 
         //wv = (WebView) findViewById( R.id.webView ) ;
@@ -37,7 +78,7 @@ public class ListenActivity extends YouTubeBaseActivity {
         //wv.loadUrl("http://perdu.com");
 
 
-        mQueue = Volley.newRequestQueue(this);
+       /* mQueue = Volley.newRequestQueue(this);
 
         System.out.println("Video");
 
@@ -52,7 +93,7 @@ public class ListenActivity extends YouTubeBaseActivity {
                 + "%20"
                 + tr.getArtiste()
                 + "&key="
-                + API_KEY ;
+                *//*+ API_KEY*//* ;
 
         url = url.replace(" ","%20") ;
 
@@ -99,9 +140,9 @@ public class ListenActivity extends YouTubeBaseActivity {
                 error.printStackTrace();
             }
         }) {
-            /**
+            *//**
              * Passing some request headers*
-             */
+             *//*
             @Override
             public Map getHeaders() throws AuthFailureError {
                 HashMap headers = new HashMap();
@@ -115,8 +156,8 @@ public class ListenActivity extends YouTubeBaseActivity {
         };
         System.out.println("2");
         mQueue.add(request);
-        System.out.println("3");
-    }
+        System.out.println("3");*/
+    //}
 
 
 /*
@@ -138,4 +179,4 @@ public class ListenActivity extends YouTubeBaseActivity {
 */
 
 
-}
+//}
