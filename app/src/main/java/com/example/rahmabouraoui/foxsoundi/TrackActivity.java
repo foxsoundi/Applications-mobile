@@ -77,8 +77,9 @@ public class TrackActivity extends AppCompatActivity {
 
                                 JSONArray jsonArtistes = jsonAlbum.getJSONArray("artists");
                                 System.out.println( "Track >> " + jsonArtistes.length() );
-                                //JSONObject jsonArtiste = jsonImgs.getJSONObject(0);
-                                //tr.setArtiste(jsonArtiste.getString("name"));
+                                JSONObject jsonArtiste = jsonArtistes.getJSONObject(0);
+                                System.out.println( "      >> " + jsonArtiste.toString() );
+                                tr.setArtiste(jsonArtiste.getString("name"));
 
 
                                 lesTRs.add(tr);
