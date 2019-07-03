@@ -44,7 +44,7 @@ public class GenresImagesActivity extends AppCompatActivity {
 
         mQueue = Volley.newRequestQueue(this);
 
-        String url = "http://foxsoundi2.azurewebsites.net/v1/music/genre";
+        String url = "https://foxsoundi2.azurewebsites.net/v1/music/genre";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

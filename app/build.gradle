@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.app.rahmabouraoui.foxsoundi"
         minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
+        targetSdkVersion 28
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

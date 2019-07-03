@@ -3,10 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.app.rahmabouraoui.foxsoundi">
 
-    
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
     <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -16,6 +14,7 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
+            android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme">
         <activity
                 android:name="com.app.rahmabouraoui.foxsoundi.HomeActivity"
@@ -43,9 +42,6 @@
         <activity
                 android:name="com.app.rahmabouraoui.foxsoundi.SearchActivity"
                 android:parentActivityName="com.app.rahmabouraoui.foxsoundi.SearchActivity"/>
-        <activity
-                android:name="com.app.rahmabouraoui.foxsoundi.MusicActivity"
-                android:parentActivityName="com.app.rahmabouraoui.foxsoundi.MusicActivity"/>
         <activity android:name="com.app.rahmabouraoui.foxsoundi.GenresImagesActivity">
         </activity>
         <activity
