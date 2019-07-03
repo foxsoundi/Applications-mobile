@@ -3,12 +3,12 @@ package com.example.rahmabouraoui.foxsoundi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.android.volley.Request;
@@ -26,6 +26,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a response the principal activity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -45,15 +48,11 @@ public class MainActivity extends AppCompatActivity {
         grille = (GridLayout) findViewById(R.id.mainGrid) ;
         mQueue = Volley.newRequestQueue(this);
 
-        System.out.println("Genres");
-
         String url = "http://foxsoundi2.azurewebsites.net/v1/music/genre";
-        System.out.println("1");
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("Requete");
                         try {
                             JSONObject jsonCategories = response.getJSONObject("categories");
                             JSONArray jsonItems = jsonCategories.getJSONArray("items");
@@ -72,40 +71,24 @@ public class MainActivity extends AppCompatActivity {
                                 icone.setWidth(jsonIcone.getInt("width"));
                                 genre.setIcone(icone);
                                 genres.add(genre);
-                                Log.i("GENRE ; " , genre.toString());
-                                System.out.println(genre.toString());
-
                             }
 
                             for(Genre genre : genres) {
-                                System.out.println("Genre $$$ : " + genre) ;
                                 new MainActivity.DownLoadImageTask(MainActivity.this.grille, genre).execute();
-                                /*
-                                LinearLayout linearLayout = new LinearLayout(GenresImagesActivity.this);
-                                TextView textGenre = new TextView(GenresImagesActivity.this);
-                                textGenre.setText(genre.getName());
-                                LinearLayout.LayoutParams paramText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                linearLayout.addView(textGenre, paramText);
-                                grille.addView(linearLayout);
-                                */
                             }
 
 
                         } catch (JSONException e) {
-                            System.out.println("e1");
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("e2");
                 error.printStackTrace();
             }
         });
-        System.out.println("2");
         mQueue.add(request);
-        System.out.println("3");
 
     }
 
@@ -123,40 +106,26 @@ public class MainActivity extends AppCompatActivity {
             this.genre = genre;
         }
 
-        /*
-                            doInBackground(Params... params)
-                                Override this method to perform a computation on a background thread.
-                         */
+
         protected Bitmap doInBackground(String...urls){
-            //String urlOfImage = urls[0];
             String urlOfImage = genre.getIcone().getUrl();
             Bitmap logo = null;
             try{
                 InputStream is = new URL(urlOfImage).openStream();
-                /*
-                    decodeStream(InputStream is)
-                        Decode an input stream into a bitmap.
-                 */
+
                 logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
+            }catch(Exception e){
                 e.printStackTrace();
             }
             return logo;
         }
 
-        /*
-            onPostExecute(Result result)
-                Runs on the UI thread after doInBackground(Params...).
-         */
         protected void onPostExecute(Bitmap result){
-            System.out.println( "VERTICAL" ) ;
             LinearLayout linearLayout = new LinearLayout(MainActivity.this);
-            //linearLayout.setGravity(LinearLayout.VERTICAL);
             ImageView imgGenre = new ImageView(MainActivity.this);
             imgGenre.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println( "GG : " + genre.getName() ) ;
                     Bundle bdl = new Bundle() ;
                     bdl.putString( "id" , MainActivity.DownLoadImageTask.this.genre.getId() );
                     Intent intent = new Intent(MainActivity.this, GenreMusicActivity.class);
@@ -168,8 +137,10 @@ public class MainActivity extends AppCompatActivity {
             linearLayout.addView(imgGenre);
             TextView textGenre = new TextView(MainActivity.this);
             textGenre.setText(genre.getName());
+            textGenre.setTextColor(Color.BLACK);
             LinearLayout.LayoutParams paramText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             linearLayout.addView(textGenre, paramText);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
             grille.addView(linearLayout);
 
         }

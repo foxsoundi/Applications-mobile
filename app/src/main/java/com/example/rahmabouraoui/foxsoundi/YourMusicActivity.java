@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+/**
+ * Represents a response from tracks's categories
+ */
 public class YourMusicActivity extends AppCompatActivity {
 
     private long id;

@@ -19,7 +19,7 @@
 
         <GridLayout
                 android:id="@+id/mainGridPL"
-                android:columnCount="1"
+                android:columnCount="3"
                 android:alignmentMode="alignMargins"
                 android:columnOrderPreserved="false"
                 android:layout_weight="8"

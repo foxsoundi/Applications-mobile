@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Represents an adapter for contents
+ */
 public class GridAdapter extends BaseAdapter {
 
     Context context;

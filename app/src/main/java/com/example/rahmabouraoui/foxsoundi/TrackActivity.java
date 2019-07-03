@@ -3,10 +3,10 @@ package com.example.rahmabouraoui.foxsoundi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -27,6 +27,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a response from tracks's categories
+ */
 public class TrackActivity extends AppCompatActivity {
 
 
@@ -45,17 +48,13 @@ public class TrackActivity extends AppCompatActivity {
 
         mQueue = Volley.newRequestQueue(this);
 
-        System.out.println("Tracks");
-
         String idPL = this.getIntent().getExtras().getString( "id" ) ;
 
         String url = "http://foxsoundi2.azurewebsites.net/v1/music/playlist/" + idPL + "/tracks" ;
-        System.out.println("1 => " + url );
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("Requete");
                         try {
                             JSONArray jsonItems = response.getJSONArray("items");
 
@@ -76,47 +75,30 @@ public class TrackActivity extends AppCompatActivity {
                                 tr.setUrlImage(jsonImg.getString("url"));
 
                                 JSONArray jsonArtistes = jsonAlbum.getJSONArray("artists");
-                                System.out.println( "Track >> " + jsonArtistes.length() );
                                 JSONObject jsonArtiste = jsonArtistes.getJSONObject(0);
-                                System.out.println( "      >> " + jsonArtiste.toString() );
                                 tr.setArtiste(jsonArtiste.getString("name"));
 
 
                                 lesTRs.add(tr);
-                                Log.i("TR ; " , tr.toString());
-                                System.out.println(tr.toString());
 
                             }
 
                             for(Track tr : lesTRs) {
-                                System.out.println("TR $$$ : " + tr) ;
                                 new TrackActivity.DownLoadImageTask(TrackActivity.this.grille, tr).execute();
-                                /*
-                                LinearLayout linearLayout = new LinearLayout(GenresImagesActivity.this);
-                                TextView textGenre = new TextView(GenresImagesActivity.this);
-                                textGenre.setText(genre.getName());
-                                LinearLayout.LayoutParams paramText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                linearLayout.addView(textGenre, paramText);
-                                grille.addView(linearLayout);
-                                */
                             }
 
 
                         } catch (JSONException e) {
-                            System.out.println("e1");
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("e2");
                 error.printStackTrace();
             }
         });
-        System.out.println("2");
         mQueue.add(request);
-        System.out.println("3");
     }
 
     public void Back(View v) {
@@ -137,40 +119,26 @@ public class TrackActivity extends AppCompatActivity {
             this.tr = tr;
         }
 
-        /*
-                            doInBackground(Params... params)
-                                Override this method to perform a computation on a background thread.
-                         */
+
         protected Bitmap doInBackground(String...urls){
-            //String urlOfImage = urls[0];
             String urlOfImage = tr.getUrlImage() ;
             Bitmap logo = null;
             try{
                 InputStream is = new URL(urlOfImage).openStream();
-                /*
-                    decodeStream(InputStream is)
-                        Decode an input stream into a bitmap.
-                 */
+
                 logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
+            }catch(Exception e){
                 e.printStackTrace();
             }
             return logo;
         }
 
-        /*
-            onPostExecute(Result result)
-                Runs on the UI thread after doInBackground(Params...).
-         */
         protected void onPostExecute(Bitmap result){
-            System.out.println( "VERTICAL" ) ;
             LinearLayout linearLayout = new LinearLayout(TrackActivity.this);
-            //linearLayout.setGravity(LinearLayout.VERTICAL);
             ImageView imgTR = new ImageView(TrackActivity.this);
             imgTR.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println( "TR : " + tr ) ;
 
                     Bundle bdl = new Bundle() ;
                     bdl.putSerializable( "music" , tr );
@@ -184,6 +152,7 @@ public class TrackActivity extends AppCompatActivity {
             linearLayout.addView(imgTR);
             TextView textGenre = new TextView(TrackActivity.this);
             textGenre.setText(tr.getName());
+            textGenre.setTextColor(Color.BLACK);
             LinearLayout.LayoutParams paramText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             linearLayout.addView(textGenre, paramText);
             grille.addView(linearLayout);

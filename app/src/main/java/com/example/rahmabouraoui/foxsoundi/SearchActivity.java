@@ -13,6 +13,9 @@ import android.widget.SearchView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents a response from musics's search
+ */
 public class SearchActivity extends AppCompatActivity {
 
     ListView search;
@@ -44,12 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
 
-        System.out.println(">>>>>>> " + item) ;
-
-
         SearchView searchView = (SearchView) item.getActionView();
-
-        System.out.println(">>>>>>> " + searchView) ;
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
