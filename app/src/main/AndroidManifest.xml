@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.rahmabouraoui.foxsoundi">
+          package="com.app.rahmabouraoui.foxsoundi">
 
     
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
@@ -18,7 +18,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".HomeActivity"
+                android:name="com.app.rahmabouraoui.foxsoundi.HomeActivity"
                 android:label="@string/app_name"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait">
@@ -29,24 +29,24 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".MainActivity"
+                android:name="com.app.rahmabouraoui.foxsoundi.MainActivity"
                 android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-                android:name=".AccountActivity"
+                android:name="com.app.rahmabouraoui.foxsoundi.AccountActivity"
                 android:label="@string/title_activity_account"
-                android:parentActivityName=".MainActivity">
+                android:parentActivityName="com.app.rahmabouraoui.foxsoundi.MainActivity">
         </activity>
         <activity
-                android:name=".SearchActivity"
-                android:parentActivityName=".SearchActivity"/>
+                android:name="com.app.rahmabouraoui.foxsoundi.SearchActivity"
+                android:parentActivityName="com.app.rahmabouraoui.foxsoundi.SearchActivity"/>
         <activity
-                android:name=".MusicActivity"
-                android:parentActivityName=".MusicActivity"/>
-        <activity android:name=".GenresImagesActivity">
+                android:name="com.app.rahmabouraoui.foxsoundi.MusicActivity"
+                android:parentActivityName="com.app.rahmabouraoui.foxsoundi.MusicActivity"/>
+        <activity android:name="com.app.rahmabouraoui.foxsoundi.GenresImagesActivity">
         </activity>
         <activity
                 android:name="com.facebook.FacebookActivity"
@@ -69,11 +69,11 @@
                 android:name="com.facebook.sdk.ApplicationId"
                 android:value="@string/facebook_app_id"/>
 
-        <activity android:name=".GenreMusicActivity">
+        <activity android:name="com.app.rahmabouraoui.foxsoundi.GenreMusicActivity">
         </activity>
-        <activity android:name=".TrackActivity">
+        <activity android:name="com.app.rahmabouraoui.foxsoundi.TrackActivity">
         </activity>
-        <activity android:name=".ListenActivity">
+        <activity android:name="com.app.rahmabouraoui.foxsoundi.ListenActivity">
         </activity>
     </application>
 
